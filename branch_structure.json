@@ -1,0 +1,27 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "fix/1368-new-tab-clicks",
+    "main",
+    "origin",
+    "solver/issue-1162-123-a0",
+    "solver/issue-1162-4-a0",
+    "solver/issue-1368-105-a0"
+  ],
+  "parent": {
+    "fix/1368-new-tab-clicks": "main",
+    "main": null,
+    "origin": "main",
+    "solver/issue-1162-123-a0": "main",
+    "solver/issue-1162-4-a0": "main",
+    "solver/issue-1368-105-a0": "main"
+  },
+  "order": [
+    "main",
+    "fix/1368-new-tab-clicks",
+    "origin",
+    "solver/issue-1162-123-a0",
+    "solver/issue-1162-4-a0",
+    "solver/issue-1368-105-a0"
+  ]
+}
