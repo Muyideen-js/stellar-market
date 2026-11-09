@@ -25,6 +25,12 @@ export function useUnsavedChangesWarning(isDirty: boolean) {
     const handleClick = (e: MouseEvent) => {
       if (!isDirty) return;
 
+      // Let the browser handle modified clicks (open in new tab/window,
+      // download) and non-primary buttons such as middle-click.
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+        return;
+      }
+
       const target = e.target as HTMLElement;
       const anchor = target.closest("a");
 
