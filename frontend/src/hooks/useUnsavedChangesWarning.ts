@@ -25,6 +25,12 @@ export function useUnsavedChangesWarning(isDirty: boolean) {
     const handleClick = (e: MouseEvent) => {
       if (!isDirty) return;
 
+      // Leave new-tab/new-window gestures to the browser: ctrl/cmd/shift/alt
+      // clicks and non-primary buttons (middle-click) don't navigate this tab.
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+        return;
+      }
+
       const target = e.target as HTMLElement;
       const anchor = target.closest("a");
 

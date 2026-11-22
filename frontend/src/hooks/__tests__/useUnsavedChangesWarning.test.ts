@@ -86,4 +86,28 @@ describe("useUnsavedChangesWarning", () => {
 
     document.body.removeChild(anchor);
   });
+  it.each([
+    ["ctrl-click", { ctrlKey: true }],
+    ["cmd-click", { metaKey: true }],
+    ["shift-click", { shiftKey: true }],
+    ["alt-click", { altKey: true }],
+    ["middle-click", { button: 1 }],
+  ])("isDirty = true + %s on an internal link: no guard", (_name, init) => {
+    const { result } = renderHook(() => useUnsavedChangesWarning(true));
+
+    const anchor = document.createElement("a");
+    anchor.href = "http://localhost/dashboard";
+    document.body.appendChild(anchor);
+
+    const event = new MouseEvent("click", { bubbles: true, cancelable: true, ...init });
+    act(() => {
+      anchor.dispatchEvent(event);
+    });
+
+    expect(event.defaultPrevented).toBe(false);
+    expect(result.current.showModal).toBe(false);
+    expect(mockPush).not.toHaveBeenCalled();
+
+    document.body.removeChild(anchor);
+  });
 });
