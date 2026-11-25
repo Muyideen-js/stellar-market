@@ -25,6 +25,14 @@ export function useUnsavedChangesWarning(isDirty: boolean) {
     const handleClick = (e: MouseEvent) => {
       if (!isDirty) return;
 
+      // Respect the browser's open-in-new-tab/new-window gestures. Ctrl/Cmd/
+      // Shift-click and non-primary mouse buttons (middle-click) must pass
+      // through untouched, otherwise we both show a spurious prompt and, on
+      // confirmation, hijack the current tab's navigation.
+      if (e.defaultPrevented) return;
+      if (e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
       const target = e.target as HTMLElement;
       const anchor = target.closest("a");
 
